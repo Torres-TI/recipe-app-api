@@ -10,14 +10,15 @@ WORKDIR /app
 EXPOSE 8000
 
 ARG DEV=False
-RUN python -m venv /py && \ 
+
+RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     /py/bin/pip install -r /tmp/requirements.txt && \
-    if [$DEV ="True"]; \
-        then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
+    if [ "$DEV" = "True" ]; then \
+        /py/bin/pip install -r /tmp/requirements.dev.txt; \
     fi && \
-    rm -rf /tmp  && \
-    adduser \ 
+    rm -rf /tmp && \
+    adduser \
         --disabled-password \
         --no-create-home \
         django-user
