@@ -49,6 +49,7 @@ class PrivateTagsApiTests(TestCase):
         serializer = TagSerializer(tags, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
+
     def test_tags_limited_to_user(self):
         """Test that tags returned are for the authenticated user."""
         user2 = create_user(email="userexample2@example.com")
@@ -59,4 +60,3 @@ class PrivateTagsApiTests(TestCase):
         self.assertEqual(len(res.data), 1)
         self.assertEqual(res.data[0]["name"], tag.name)
         self.assertEqual(res.data[0]["id"], tag.id)
-    
